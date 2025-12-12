@@ -1,33 +1,68 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>재단형(사각)스티커 견적</title>
+
   <style>
-    body {
+    body{
       font-family: 'Noto Sans KR', sans-serif;
-      padding: 20px;
-      max-width: 400px;
-      margin: auto;
+      margin: 0;
+      padding: 16px;
       background: #f9f9f9;
+      box-sizing: border-box;
+    }
+
+    .container{
+      width: 100%;
+      max-width: 900px;     /* PC 2열 기준 */
+      margin: 0 auto;
+      background: #fff;
       border-radius: 12px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      box-sizing: border-box;
     }
-    h2 {
+
+    h2{
       text-align: center;
-      color: #333;
+      margin-top: 0;
+      margin-bottom: 20px;
     }
-    label {
+
+    /* ===== 레이아웃 ===== */
+    .layout{
+      display: flex;
+      flex-direction: column;   /* 모바일: 1열 */
+      gap: 20px;
+    }
+
+    .left, .right{
+      width: 100%;
+    }
+
+    /* ===== PC에서 2열 ===== */
+    @media (min-width: 1024px){
+      body{ padding: 32px; }
+
+      .layout{
+        flex-direction: row;
+        gap: 32px;
+      }
+
+      .left{ flex: 1.2; }
+      .right{ flex: 0.8; }
+    }
+
+    label{
       display: block;
       margin-top: 15px;
       font-weight: bold;
       color: #444;
     }
-    .print-color-option {
-      color: orange;
-      font-weight: bold;
-    }
-    select, input {
+
+    select, input{
       width: 100%;
       padding: 8px;
       margin-top: 5px;
@@ -35,10 +70,16 @@
       border-radius: 8px;
       box-sizing: border-box;
     }
-    button {
+
+    .print-color-option{
+      color: orange;
+      font-weight: bold;
+    }
+
+    button{
       margin-top: 20px;
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       background-color: #4CAF50;
       color: white;
       border: none;
@@ -46,67 +87,99 @@
       font-size: 16px;
       cursor: pointer;
     }
-    button:hover {
+
+    button:hover{
       background-color: #45a049;
     }
-    h3 {
-      margin-top: 25px;
+
+    /* ===== 결과 카드 ===== */
+    .result-box{
+      background: #f5f7fa;
+      border-radius: 10px;
+      padding: 24px;
       text-align: center;
-      color: #222;
+      height: 100%;
     }
-    #note {
-      text-align: center;
+
+    .result-box h3{
+      margin-top: 0;
+      color: #333;
+    }
+
+    .price{
+      font-size: 32px;
+      font-weight: bold;
+      color: #2e7d32;
+      margin: 20px 0;
+    }
+
+    #note{
       color: red;
+      margin: 0;
     }
   </style>
 </head>
+
 <body>
-  <h2>재단형(사각)스티커 견적</h2>
+  <div class="container">
+    <h2>재단형(사각)스티커 견적</h2>
 
-  <label>재질:
-    <select id="material">
-      <option value="아트지 무코팅">아트지 무코팅</option>
-      <option value="아트지 유광코팅">아트지 유광코팅</option>
-      <option value="아트지 무광코팅">아트지 무광코팅</option>
-      <option value="유포지">유포지</option>
-      <option value="투명지">투명지</option>
-      <option value="모조지">모조지</option>
-      <option value="크라프트지">크라프트지</option>
-    </select>
-  </label>
+    <div class="layout">
+      <!-- 왼쪽: 입력 -->
+      <div class="left">
+        <label>재질:
+          <select id="material">
+            <option value="아트지 무코팅">아트지 무코팅</option>
+            <option value="아트지 유광코팅">아트지 유광코팅</option>
+            <option value="아트지 무광코팅">아트지 무광코팅</option>
+            <option value="유포지">유포지</option>
+            <option value="투명지">투명지</option>
+            <option value="모조지">모조지</option>
+            <option value="크라프트지">크라프트지</option>
+          </select>
+        </label>
 
-  <label>인쇄도수:
-    <select disabled>
-      <option selected class="print-color-option">단면4도</option>
-    </select>
-  </label>
+        <label>인쇄도수:
+          <select disabled>
+            <option selected class="print-color-option">단면4도</option>
+          </select>
+        </label>
 
-  <label>가로 (mm):
-    <input type="number" id="width" value="30" min="30" max="510">
-  </label>
+        <label>가로 (mm):
+          <input type="number" id="width" value="30" min="30" max="510">
+        </label>
 
-  <label>세로 (mm):
-    <input type="number" id="height" value="30" min="30" max="760">
-  </label>
+        <label>세로 (mm):
+          <input type="number" id="height" value="30" min="30" max="760">
+        </label>
 
-  <label>수량:
-    <select id="quantity">
-      <option value="500">500</option>
-      <option value="1000">1000</option>
-      <option value="2000">2000</option>
-      <option value="3000">3000</option>
-      <option value="4000">4000</option>
-      <option value="5000">5000</option>
-      <option value="6000">6000</option>
-      <option value="8000">8000</option>
-      <option value="10000">10000</option>
-    </select>
-  </label>
+        <label>수량:
+          <select id="quantity">
+            <option value="500">500</option>
+            <option value="1000">1000</option>
+            <option value="2000">2000</option>
+            <option value="3000">3000</option>
+            <option value="4000">4000</option>
+            <option value="5000">5000</option>
+            <option value="6000">6000</option>
+            <option value="8000">8000</option>
+            <option value="10000">10000</option>
+          </select>
+        </label>
 
-  <button onclick="calculate()">견적 계산</button>
+        <button onclick="calculate()">견적 계산</button>
+      </div>
 
-  <h3>계산된 견적: <span id="result">-</span> 원</h3>
-  <p id="note"></p>
+      <!-- 오른쪽: 결과 -->
+      <div class="right">
+        <div class="result-box">
+          <h3>계산된 견적</h3>
+          <div class="price"><span id="result">-</span> 원</div>
+          <p id="note"></p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     const multiplierTable = {
@@ -129,21 +202,14 @@
       "크라프트지": {500: 0, 1000: 28600, 2000: 43100, 3000: 57600, 4000: 72100, 5000: 86600, 6000: 101100, 8000: 130100, 10000: 159100}
     };
 
-    function calculate() {
+    function calculate(){
       const material = document.getElementById("material").value;
       const quantity = parseInt(document.getElementById("quantity").value);
       const width = parseFloat(document.getElementById("width").value);
       const height = parseFloat(document.getElementById("height").value);
 
-      let alertMessages = [];
-      if (width < 30 || width > 510) {
-        alertMessages.push("가로사이즈는 30~510mm까지입니다.");
-      }
-      if (height < 30 || height > 760) {
-        alertMessages.push("세로사이즈는 30~760mm까지입니다.");
-      }
-      if (alertMessages.length > 0) {
-        alert(alertMessages.join("\n"));
+      if (width < 30 || width > 510 || height < 30 || height > 760){
+        alert("사이즈 범위를 확인해주세요.");
         return;
       }
 
@@ -155,7 +221,6 @@
       finalPrice = Math.ceil(finalPrice * 1.1 / 100) * 100;
 
       document.getElementById("result").innerText = finalPrice.toLocaleString();
-      document.getElementById("note").innerText = "";
     }
   </script>
 </body>
